@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+
+  filtron:
+    container_name: filtron
+    image: dalf/filtron
+    restart: always
+    networks:
+      - net-searxng
+    command: -listen 0.0.0.0:4040 -api 0.0.0.0:4041 -target searxng:8080
+    volumes:
+      - ./rules.json:/etc/filtron/rules.json:rw
+    read_only: true
+    cap_drop:
+      - ALL
+
+  searxng:
+    container_name: searxng
+    image: searxng/searxng:latest
+    restart: always
+    command: ${SEARXNG_COMMAND:-}
+    networks:
+      - net-searxng
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    environment:
+      - BIND_ADDRESS=0.0.0.0:8080
+      - BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
+      - MORTY_URL=https://${SEARXNG_HOSTNAME:-localhost}/morty/
+      - MORTY_KEY=${MORTY_KEY}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+      
+  morty:
+    container_name: morty
+    image: dalf/morty
+    restart: always
+    networks:
+      - net-searxng
+    command: -timeout 6 -ipv6
+    environment:
+      - MORTY_KEY=${MORTY_KEY}
+      - MORTY_ADDRESS=0.0.0.0:3000
+    logging:
+      driver: none
+    read_only: true
+    cap_drop:
+      - ALL
+
+networks:
+  net-searxng:
+    external: true
