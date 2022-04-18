@@ -15,7 +15,7 @@ docker network create net-searxng
 
 Import the rules from searxng
 ```sh
-curl https://raw.githubusercontent.com/searxng/searxng-docker/master/rules.json -O rules.json
+curl https://raw.githubusercontent.com/searxng/searxng-docker/master/rules.json > rules.json
 ```
 
 ## **SearxNG Configuration**
