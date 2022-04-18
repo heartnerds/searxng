@@ -22,6 +22,11 @@ curl https://raw.githubusercontent.com/searxng/searxng-docker/master/rules.json 
 
 Update the `.env` file.
 
+Replace key in .env
+```sh
+sed -i "s|ReplaceWithARealKey|$(openssl rand -base64 33)|g" .env
+```
+
 Generate settings.yml 
 ```sh
 docker-compose up -d && docker-compose down
