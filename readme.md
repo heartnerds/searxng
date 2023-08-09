@@ -2,7 +2,7 @@
 
 SearxNG using an external NGINX container through `net-searxng` external network.
 
-You can use [certginx](https://gitea.heartnerds.org/selfhost/certginx) to manage NGINX.
+You can use [certginx](https://github.com/heartnerds/certginx) to manage NGINX.
 
 ## **Docker Configuration**
 
@@ -40,4 +40,4 @@ Replace the template domain with your real domain *(Change `my_domain.example` w
 sed -i "s/change_me.example/my_domain.example/g" nginx.conf
 ```
 
-If your are using [certginx](https://gitea.heartnerds.org/selfhost/certginx), move `nginx.conf` to your certginx instance in `./nginx/conf.d/<your-domain>.conf`
+If your are using [certginx](https://github.com/heartnerds/certginx), move `nginx.conf` to your certginx instance in `./nginx/conf.d/<your-domain>.conf`
