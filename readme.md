@@ -29,7 +29,7 @@ sed -i "s|ReplaceWithARealKey|$(openssl rand -base64 33)|g" .env
 
 Generate settings.yml 
 ```sh
-docker-compose up -d && docker-compose down
+docker compose up -d && docker compose down
 ```
 
 
